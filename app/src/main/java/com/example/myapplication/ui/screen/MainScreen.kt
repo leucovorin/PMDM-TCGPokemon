@@ -53,7 +53,7 @@ fun CartaList(
         verticalArrangement = Arrangement.spacedBy(0.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(103) { indice ->
+        items(cartas.size) { indice ->
             CartaCard(
                 modifier = Modifier.fillMaxWidth(),
                 carta = cartas[indice])
