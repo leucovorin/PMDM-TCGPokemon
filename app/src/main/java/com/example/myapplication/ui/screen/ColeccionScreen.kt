@@ -20,7 +20,7 @@ import androidx.compose.material3.Card
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun MainScreen(
+fun ColeccionScreen(
     modifier: Modifier,
     cartas: List<Carta>
 ) {

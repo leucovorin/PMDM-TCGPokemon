@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import kotlin.collections.listOf
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.screen.MainScreen
+import com.example.myapplication.ui.screen.ColeccionScreen
 import com.example.myapplication.model.Carta
 import com.example.myapplication.model.Rareza
 
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
+                    ColeccionScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
