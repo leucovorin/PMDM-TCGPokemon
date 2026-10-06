@@ -26,6 +26,7 @@ fun AppNavHost (
 
     val listaCartas = listOf(
         Carta(
+            id = 1,
             nombre = "Alakazam",
             rareza = Rareza.RH,
             precio = 0.20f,
@@ -36,6 +37,7 @@ fun AppNavHost (
         ),
 
         Carta(
+            id = 2,
             nombre = "Blastoise",
             rareza = Rareza.RH,
             precio = 8.75f,
@@ -45,6 +47,7 @@ fun AppNavHost (
             imagen = R.drawable.imagen3
         ),
         Carta(
+            id = 3,
             nombre = "Chansey",
             rareza = Rareza.RH,
             precio = 85.00f,
@@ -54,6 +57,7 @@ fun AppNavHost (
             imagen = R.drawable.imagen5
         ),
         Carta(
+            id = 4,
             nombre = "Charizard",
             rareza = Rareza.RH,
             precio = 12.50f,
@@ -63,6 +67,7 @@ fun AppNavHost (
             imagen = R.drawable.imagen2
         ),
         Carta(
+            id = 5,
             nombre = "Clefairy",
             rareza = Rareza.RH,
             precio = 85.00f,
@@ -91,6 +96,7 @@ fun AppNavHost (
 fun buscarCarta(id: Long) : Carta {
     val listaCartas = listOf(
         Carta(
+            id = 1,
             nombre = "Alakazam",
             rareza = Rareza.RH,
             precio = 0.20f,
@@ -101,6 +107,7 @@ fun buscarCarta(id: Long) : Carta {
         ),
 
         Carta(
+            id = 2,
             nombre = "Blastoise",
             rareza = Rareza.RH,
             precio = 8.75f,
@@ -110,6 +117,7 @@ fun buscarCarta(id: Long) : Carta {
             imagen = R.drawable.imagen3
         ),
         Carta(
+            id = 3,
             nombre = "Chansey",
             rareza = Rareza.RH,
             precio = 85.00f,
@@ -119,6 +127,7 @@ fun buscarCarta(id: Long) : Carta {
             imagen = R.drawable.imagen5
         ),
         Carta(
+            id = 4,
             nombre = "Charizard",
             rareza = Rareza.RH,
             precio = 12.50f,
@@ -128,6 +137,7 @@ fun buscarCarta(id: Long) : Carta {
             imagen = R.drawable.imagen2
         ),
         Carta(
+            id = 5,
             nombre = "Clefairy",
             rareza = Rareza.RH,
             precio = 85.00f,
@@ -138,5 +148,5 @@ fun buscarCarta(id: Long) : Carta {
         )
     )
 
-    return listaCartas.find { it.imagen == imagen }!!
+    return listaCartas.find { it.id == id }!!
 }

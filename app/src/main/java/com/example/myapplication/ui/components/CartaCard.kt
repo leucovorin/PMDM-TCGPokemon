@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,13 +27,17 @@ import androidx.compose.material3.MaterialTheme
 @Composable
 fun CartaCard (
     modifier: Modifier,
-    carta: Carta
+    carta: Carta,
+    onClick: (Long) -> Unit
 ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(8.dp)
+                .clickable {
+                    onClick(carta.id)
+                },
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val imagen = carta.imagen
             Image(
@@ -88,12 +93,15 @@ private fun CartaCardPreview (){
     CartaCard(
         modifier = Modifier,
         carta = Carta(
+            id = 1,
             nombre = "Nombre de la Carta",
             precio =  1.1F,
             rareza = Rareza.R,
             coleccion = 2,
             ilustrador = "payo",
             numero = "067",
-            imagen = 1
-        ))
+            imagen = 1,
+        ),
+            onClick = {}
+        )
 }

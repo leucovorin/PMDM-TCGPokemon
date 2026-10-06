@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.screen.ColeccionScreen
 import com.example.myapplication.model.Carta
 import com.example.myapplication.model.Rareza
+import com.example.myapplication.ui.navegacion.AppNavHost
 
 
 class MainActivity : ComponentActivity() {

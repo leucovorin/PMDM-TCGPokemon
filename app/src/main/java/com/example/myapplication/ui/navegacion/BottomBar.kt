@@ -21,19 +21,26 @@ public fun BottomBar(
         val currentRoute = navBackStackEntry?.destination?.route
 
         NavigationBarItem(
-            selected = currentRoute == Rutas.HOME
+            selected = currentRoute == Rutas.HOME,
             onClick = { navController.navigate(Rutas.HOME) },
             icon = { Icon(painter = painterResource(R.drawable.home), contentDescription = "Home") },
             label = { Text("Home") }
         )
 
         NavigationBarItem(
-
+            selected = currentRoute == Rutas.COLECCIONES,
+            onClick = { navController.navigate(Rutas.COLECCIONES) },
+            icon = { Icon(painter = painterResource(R.drawable.home), contentDescription = "Colecciones") },
+            label = { Text("Colecciones") }
         )
 
         NavigationBarItem(
-
+            selected = currentRoute == Rutas.PERFIL,
+            onClick = { navController.navigate(Rutas.PERFIL) },
+            icon = { Icon(painter = painterResource(R.drawable.home), contentDescription = "Perfil") },
+            label = { Text("Perfil") }
         )
+
 
     }
 }
