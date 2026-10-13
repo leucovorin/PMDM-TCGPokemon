@@ -2,12 +2,13 @@ package com.example.myapplication.ui.navegacion
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import com.example.myapplication.model.Carta
 import com.example.myapplication.model.Rareza
 import com.example.myapplication.ui.screen.HomeScreen
 import com.example.myapplication.R
+import androidx.navigation.compose.composable
 
 object Rutas {
     const val HOME = "home"

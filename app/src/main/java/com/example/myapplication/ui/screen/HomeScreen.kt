@@ -24,7 +24,8 @@ import androidx.compose.material3.Card
 @Composable
 fun HomeScreen(
     modifier: Modifier,
-    cartas: List<Carta>
+    cartas: List<Carta>,
+    onCartaClick: (Long) -> Unit
 ) {
 
 }

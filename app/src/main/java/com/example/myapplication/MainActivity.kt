@@ -7,17 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import kotlin.collections.listOf
-import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.screen.ColeccionScreen
-import com.example.myapplication.model.Carta
-import com.example.myapplication.model.Rareza
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.navegacion.AppNavHost
+import com.example.myapplication.ui.navegacion.BottomBar
+import com.example.myapplication.ui.navegacion.TopBar
 
 
 class MainActivity : ComponentActivity() {
@@ -25,11 +20,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
+
             MyApplicationTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { TopBar(navController = navController) },
-                    bottomBar = { Bottombar(navController = navController) }
+                    bottomBar = { BottomBar(navController = navController) }
                 ) { innerPadding ->
 
                     AppNavHost(
