@@ -9,10 +9,13 @@ import com.example.myapplication.model.Rareza
 import com.example.myapplication.ui.screen.HomeScreen
 import com.example.myapplication.R
 import androidx.navigation.compose.composable
+import com.example.myapplication.ui.screen.ListaCartasScreen
+import com.example.myapplication.ui.screen.ListaColeccionesScreen
+import com.example.myapplication.ui.screen.PerfilScreen
 
 object Rutas {
     const val HOME = "home"
-    const val COLECCIONES = "colecciones"
+    const val MICOLECCION = "micoleccion"
     const val PERFIL = "perfil"
     const val DETALLE = "detalle/{cartaId}"
 
@@ -86,6 +89,24 @@ fun AppNavHost (
     ) {
         composable(Rutas.HOME) {
             HomeScreen(
+                modifier = Modifier,
+                cartas = listaCartas,
+                onCartaClick = { navController.navigate(Rutas.detalleConId(it))}
+            )
+        }
+        composable(Rutas.MICOLECCION) {
+            ListaColeccionesScreen(
+                modifier = Modifier,
+                cartas = listaCartas
+            )
+        }
+        composable(Rutas.PERFIL) {
+            PerfilScreen(
+                modifier = Modifier
+            )
+        }
+        composable("lol"){
+            ListaCartasScreen (
                 modifier = Modifier,
                 cartas = listaCartas,
                 onCartaClick = { navController.navigate(Rutas.detalleConId(it))}

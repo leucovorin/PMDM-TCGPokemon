@@ -34,10 +34,10 @@ fun BottomBar(
         )
 
         NavigationBarItem(
-            selected = currentRoute == Rutas.COLECCIONES,
-            onClick = { navController.navigate(Rutas.COLECCIONES) },
+            selected = currentRoute == Rutas.MICOLECCION,
+            onClick = { navController.navigate(Rutas.MICOLECCION) },
             icon = { Icon(painter = painterResource(R.drawable.home), modifier = Modifier.size(34.dp) ,contentDescription = "Colecciones") },
-            label = { Text("Colecciones") }
+            label = { Text("Mi colección") }
         )
 
         NavigationBarItem(

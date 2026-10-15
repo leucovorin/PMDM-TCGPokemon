@@ -29,8 +29,8 @@ fun TopBar(
         title = {
             Text( text =
                 when (currentRoute) {
-                    Rutas.HOME -> "Cartas App"
-                    Rutas.COLECCIONES -> "Colecciones"
+                    Rutas.HOME -> "TCG Pokémon"
+                    Rutas.MICOLECCION -> "Mi colección"
                     Rutas.PERFIL -> "Perfil"
                     Rutas.DETALLE -> "Detalle"
                     else -> ""
@@ -40,7 +40,7 @@ fun TopBar(
         },
         navigationIcon = {
             if(currentRoute != Rutas.HOME) {
-                IconButton(onClick = { navController.popBackStack() }) {
+                IconButton(onClick = { navController.navigate(Rutas.HOME) }) {
                     Icon(painter = painterResource(R.drawable.arrow_back), contentDescription = "Volver")
                 }
             }
