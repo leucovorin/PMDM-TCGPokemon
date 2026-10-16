@@ -1,5 +1,8 @@
 package com.example.myapplication.ui.navegacion
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -11,7 +14,9 @@ import androidx.navigation.NavHostController
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.R
 
@@ -25,18 +30,26 @@ fun TopBar(
     val currentRoute = navBackStackEntry?.destination?.route
 
     TopAppBar(
-
         title = {
-            Text( text =
-                when (currentRoute) {
-                    Rutas.HOME -> "TCG Pokémon"
-                    Rutas.MICOLECCION -> "Mi colección"
-                    Rutas.PERFIL -> "Perfil"
-                    Rutas.DETALLE -> "Detalle"
-                    else -> ""
-                },
-                style = MaterialTheme.typography.headlineLarge
-            )
+            Column() {
+                Text( text =
+                    when (currentRoute) {
+                        Rutas.HOME -> "¡Hola, [usuario]!"
+                        Rutas.MICOLECCION -> "Mi colección"
+                        Rutas.PERFIL -> "Perfil"
+                        Rutas.DETALLE -> "Detalle"
+                        else -> ""
+                    },
+                    style = MaterialTheme.typography.headlineMedium
+                )
+
+                if(currentRoute == Rutas.HOME) {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text( text = "Tu colección, en buenas manos.",
+                        style = MaterialTheme.typography.bodyLarge)
+                }
+            }
+
         },
         navigationIcon = {
             if(currentRoute != Rutas.HOME) {
