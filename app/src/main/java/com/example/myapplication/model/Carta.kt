@@ -1,6 +1,7 @@
 package com.example.myapplication.model
 
 data class Carta (
+    val id: Long,
     val nombre: String,
     val rareza: String,
     val precio: Float,
