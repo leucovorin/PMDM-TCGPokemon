@@ -91,7 +91,8 @@ fun AppNavHost (
             HomeScreen(
                 modifier = Modifier,
                 cartas = listaCartas,
-                onCartaClick = { navController.navigate(Rutas.detalleConId(it))}
+                onCartaClick = { navController.navigate(Rutas.detalleConId(it))},
+                navController = navController
             )
         }
         composable(Rutas.MICOLECCION) {
