@@ -36,14 +36,14 @@ fun BottomBar(
         NavigationBarItem(
             selected = currentRoute == Rutas.MICOLECCION,
             onClick = { navController.navigate(Rutas.MICOLECCION) },
-            icon = { Icon(painter = painterResource(R.drawable.home), modifier = Modifier.size(34.dp) ,contentDescription = "Colecciones") },
+            icon = { Icon(painter = painterResource(R.drawable.coleccion), modifier = Modifier.size(34.dp) ,contentDescription = "Colecciones") },
             label = { Text("Mi colección") }
         )
 
         NavigationBarItem(
             selected = currentRoute == Rutas.PERFIL,
             onClick = { navController.navigate(Rutas.PERFIL) },
-            icon = { Icon(painter = painterResource(R.drawable.home), modifier = Modifier.size(34.dp) ,contentDescription = "Perfil") },
+            icon = { Icon(painter = painterResource(R.drawable.perfil), modifier = Modifier.size(34.dp) ,contentDescription = "Perfil") },
             label = { Text("Perfil") }
         )
 

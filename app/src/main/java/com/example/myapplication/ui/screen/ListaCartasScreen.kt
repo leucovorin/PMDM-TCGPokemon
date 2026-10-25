@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.model.Carta
 import com.example.myapplication.model.Rareza
+import com.example.myapplication.model.listaColecciones
 import com.example.myapplication.ui.components.CartaCard
 
 @Composable
@@ -31,7 +32,6 @@ fun ListaCartasScreen(
         Column(
             modifier
         ) {
-            Text(text = "Cartas APP", style = MaterialTheme.typography.displaySmall, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.height(8.dp))
             CartaList(
                 modifier = Modifier.fillMaxWidth(),
@@ -43,7 +43,7 @@ fun ListaCartasScreen(
 }
 
 @Composable
-fun CartaList(
+private fun CartaList(
     modifier: Modifier,
     cartas: List<Carta>,
     onCartaClick: (Long) -> Unit
@@ -69,9 +69,9 @@ fun CartaListPreview(){
     CartaList(
         modifier = Modifier,
         cartas = listOf(
-            Carta( id = 1, nombre = "Carta I", precio = 5.3f, rareza = Rareza.R, numero = "001", ilustrador = "payico", coleccion = 5, imagen = 1 ),
-            Carta( id = 2, nombre = "Carta II", precio = 15.2f, rareza = Rareza.R, numero = "022", ilustrador = "payo", coleccion = 5, imagen = 1 ),
-            Carta( id = 3, nombre = "Carta III", precio = 25.5f, rareza = Rareza.R, numero = "003", ilustrador = "payuco", coleccion = 5, imagen = 1 )
+            Carta( id = 1, nombre = "Carta I", precio = 5.3f, rareza = Rareza.R, numero = "001", ilustrador = "payico", coleccion = listaColecciones[0], imagen = "" ),
+            Carta( id = 2, nombre = "Carta II", precio = 15.2f, rareza = Rareza.R, numero = "022", ilustrador = "payo", coleccion = listaColecciones[0], imagen = "" ),
+            Carta( id = 3, nombre = "Carta III", precio = 25.5f, rareza = Rareza.R, numero = "003", ilustrador = "payuco", coleccion = listaColecciones[0], imagen = "2" )
         ),
         onCartaClick = {}
     )

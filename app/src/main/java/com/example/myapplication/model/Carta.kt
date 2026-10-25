@@ -7,8 +7,8 @@ data class Carta (
     val precio: Float,
     val numero: String,
     val ilustrador: String,
-    val coleccion: Int, // Próximamente será de la clase "Coleccion"
-    val imagen: Int
+    val coleccion: Coleccion,
+    val imagen: String
 )
 
 object Rareza {
@@ -24,5 +24,6 @@ object Rareza {
     const val S = "Shiny Rare"
     const val SSR = "Shiny Ultra Rare"
     const val PROMO = "Black Star Promo"
+    const val FUR = "Futuristic Rare"
     const val RH = "Rare Holo"
 }

@@ -38,6 +38,8 @@ fun TopBar(
                         Rutas.MICOLECCION -> "Mi colección"
                         Rutas.PERFIL -> "Perfil"
                         Rutas.DETALLE -> "Detalle"
+                        Rutas.COLECCIONES -> "Sets"
+                        Rutas.COLECCION -> "Sets"
                         else -> ""
                     },
                     style = MaterialTheme.typography.headlineMedium
@@ -53,7 +55,7 @@ fun TopBar(
         },
         navigationIcon = {
             if(currentRoute != Rutas.HOME) {
-                IconButton(onClick = { navController.navigate(Rutas.HOME) }) {
+                IconButton(onClick = { navController.popBackStack() }) {
                     Icon(painter = painterResource(R.drawable.arrow_back), contentDescription = "Volver")
                 }
             }

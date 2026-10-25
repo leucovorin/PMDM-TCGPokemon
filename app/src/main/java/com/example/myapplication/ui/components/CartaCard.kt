@@ -23,6 +23,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.text.font.FontWeight
+import coil.compose.AsyncImage
+import com.example.myapplication.model.listaColecciones
 
 @Composable
 fun CartaCard (
@@ -40,11 +43,11 @@ fun CartaCard (
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val imagen = carta.imagen
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp),
-                painter = painterResource(imagen),
+                model = imagen,
                 contentDescription = "Imagen Carta",
                 contentScale = ContentScale.Fit
             )
@@ -57,7 +60,8 @@ fun CartaCard (
                 ) {
                     Text(
                         text = "${carta.nombre}",
-                        style = TextStyle(fontSize = 20.sp)
+                        style = TextStyle(fontSize = 20.sp),
+                        fontWeight = FontWeight.Medium
                     )
                 }
                 Column(
@@ -75,7 +79,7 @@ fun CartaCard (
 
                 ) {
                     Text(
-                        text = "${carta.precio}€"
+                        text = "${String.format("%.2f", carta.precio)}€"
                     )
                 }
                 Column() { }
@@ -97,10 +101,10 @@ private fun CartaCardPreview (){
             nombre = "Nombre de la Carta",
             precio =  1.1F,
             rareza = Rareza.R,
-            coleccion = 2,
+            coleccion = listaColecciones[0],
             ilustrador = "payo",
             numero = "067",
-            imagen = 1,
+            imagen = "1",
         ),
             onClick = {}
         )

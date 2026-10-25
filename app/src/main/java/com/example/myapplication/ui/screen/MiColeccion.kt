@@ -1,10 +1,13 @@
 package com.example.myapplication.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
@@ -18,12 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.myapplication.model.Carta
+import com.example.myapplication.ui.components.CartaCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MiColeccion(
     modifier: Modifier,
-    cartas: List<Carta>,
+    misCartas: List<Carta>,
     onCartaClick: (Long) -> Unit
 ) {
 
@@ -33,8 +37,7 @@ fun MiColeccion(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .background(Color.Yellow)
+            .padding(horizontal = 16.dp)
     ) {
 
         SearchBar(
@@ -44,11 +47,29 @@ fun MiColeccion(
             active = active,
             onActiveChange = { active = it },
             placeholder = {
-                Text("Buscar...")
+                Text("Buscar carta")
             }
-        ) {
+        ) {}
 
+        Column() {
 
+            LazyVerticalGrid (
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(0.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(misCartas.size) { indice ->
+                    val carta = misCartas[indice]
+                    CartaCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        carta = carta,
+                        onClick = {
+                            onCartaClick(carta.id)
+                        }
+                    )
+                }
+            }
 
         }
 
