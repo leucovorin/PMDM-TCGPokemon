@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,6 +31,7 @@ import com.example.myapplication.model.Coleccion
 fun ColeccionCard(
     modifier: Modifier,
     coleccion: Coleccion,
+    progreso: Float,
     onClick: (Long) -> Unit
 ) {
 
@@ -62,7 +66,18 @@ fun ColeccionCard(
                 Text(
                     text = "${coleccion.nombre}",
                     fontWeight = FontWeight.Bold,
-                    style = TextStyle(fontSize = 20.sp)
+                    style = TextStyle(fontSize = 20.sp),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                LinearProgressIndicator(
+                    progress = progreso,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(50)),
+                    color = Color(0xFF495D92),
+                    trackColor = Color.LightGray
                 )
             }
         }
@@ -73,7 +88,8 @@ fun ColeccionCard(
 
             ) {
                 Text(
-                    text = coleccion.era
+                    text = coleccion.era,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
             Column() { }

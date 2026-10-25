@@ -7,17 +7,18 @@ import androidx.compose.runtime.toLong
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import com.example.myapplication.model.Carta
 import com.example.myapplication.model.Rareza
 import com.example.myapplication.ui.screen.HomeScreen
 import com.example.myapplication.R
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.example.myapplication.model.Coleccion
 import com.example.myapplication.model.listaColecciones
 import com.example.myapplication.ui.screen.ColeccionScreen
 import com.example.myapplication.ui.screen.DetalleScreen
-import com.example.myapplication.ui.screen.ListaCartasScreen
 import com.example.myapplication.ui.screen.ListaColeccionesScreen
 import com.example.myapplication.ui.screen.MiColeccion
 import com.example.myapplication.ui.screen.PerfilScreen
@@ -45,6 +46,15 @@ fun AppNavHost (
     val misCartas = remember {
         mutableStateListOf<Carta>()
     }
+
+    val masColeccionadas = listaColecciones
+        .sortedByDescending { coleccion ->
+            misCartas
+                .filter { it.coleccion.id == coleccion.id }
+                .distinctBy { it.id }
+                .size
+        }
+        .take(3)
 
     val listaCartas = listOf(
         Carta(
@@ -1084,7 +1094,7 @@ fun AppNavHost (
             precio = 0.0f,
             numero = "1/128",
             ilustrador = "Nelnal",
-            coleccion = listaColecciones.first { it.id == 131L},
+            coleccion = listaColecciones.first { it.id == 130L},
             imagen = "file:///android_asset/30ani/001_001_exeggcute.png"
         ),
         Carta(
@@ -1094,7 +1104,7 @@ fun AppNavHost (
             precio = 0.0f,
             numero = "2/128",
             ilustrador = "Oswaldo KATO",
-            coleccion = listaColecciones.first { it.id == 131L},
+            coleccion = listaColecciones.first { it.id == 130L},
             imagen = "file:///android_asset/30ani/002_002_exeggutor_de_alola.png"
         ),
         Carta(
@@ -1104,8 +1114,58 @@ fun AppNavHost (
             precio = 0.0f,
             numero = "3/128",
             ilustrador = "Yoriyuki Ikegami",
-            coleccion = listaColecciones.first { it.id == 131L},
+            coleccion = listaColecciones.first { it.id == 130L},
             imagen = "file:///android_asset/30ani/003_003_volbeat.png"
+        ),
+        Carta(
+            id = 107L,
+            nombre = "Illumise",
+            rareza = Rareza.C,
+            precio = 6.0f,
+            numero = "4/128",
+            ilustrador = "Shibuzoh",
+            coleccion = listaColecciones.first { it.id == 130L },
+            imagen = "file:///android_asset/30ani/004_004_illumise.png"
+        ),
+        Carta(
+            id = 108L,
+            nombre = "Sprigatito",
+            rareza = Rareza.C,
+            precio = 6.0f,
+            numero = "2/135",
+            ilustrador = "Makura Tami",
+            coleccion = listaColecciones.first { it.id == 132L },
+            imagen = "file:///android_asset/delta_reign/sprigatito.png"
+        ),
+        Carta(
+            id = 109L,
+            nombre = "Floragato",
+            rareza = Rareza.U,
+            precio = 6.0f,
+            numero = "3/135",
+            ilustrador = "Sanosuke Sakuma",
+            coleccion = listaColecciones.first { it.id == 132L },
+            imagen = "file:///android_asset/delta_reign/floragato.png"
+        ),
+        Carta(
+            id = 110L,
+            nombre = "Meowscarada Ex",
+            rareza = Rareza.RR,
+            precio = 6.0f,
+            numero = "4/135",
+            ilustrador = "5ban Graphics",
+            coleccion = listaColecciones.first { it.id == 132L },
+            imagen = "file:///android_asset/delta_reign/meowscaradaex.png"
+        ),
+        Carta(
+            id = 111L,
+            nombre = "Mega Golisopod Ex",
+            rareza = Rareza.RR,
+            precio = 6.0f,
+            numero = "1/135",
+            ilustrador = "5ban Graphics",
+            coleccion = listaColecciones.first { it.id == 132L },
+            imagen = "file:///android_asset/delta_reign/golisopodex.png"
         )
 
     )
@@ -1120,7 +1180,9 @@ fun AppNavHost (
                 modifier = Modifier,
                 cartas = listaCartas,
                 onCartaClick = { navController.navigate(Rutas.detalleConIdCarta(it))},
-                navController = navController
+                onExplorarClick = { navController.navigate(Rutas.COLECCIONES) },
+                onMiColeccionClick = { navController.navigate(Rutas.MICOLECCION) },
+                misCartas = misCartas
             )
         }
         composable(Rutas.MICOLECCION) {
@@ -1133,15 +1195,41 @@ fun AppNavHost (
         composable(Rutas.PERFIL) {
             PerfilScreen(
                 modifier = Modifier,
-                cartas = listaCartas,
-                navController = navController
+                listaCartas = listaCartas,
+                misCartas = misCartas,
+                onProgresoClick = { navController.navigate("${Rutas.COLECCIONES}?ordenar=true") },
+                masColeccionadas = masColeccionadas
             )
         }
-        composable(Rutas.COLECCIONES) {
+        composable(
+            route = "${Rutas.COLECCIONES}?ordenar={ordenar}",
+            arguments = listOf(
+                navArgument("ordenar") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            )
+        ) { backStackEntry ->
+
+            val ordenar = backStackEntry.arguments
+                ?.getBoolean("ordenar") ?: false
+
+            val coleccionesAMostrar = if (ordenar) {
+                listaColecciones.sortedByDescending { coleccion ->
+                    misCartas.count { carta ->
+                        carta.coleccion.id == coleccion.id
+                    }
+                }
+            } else {
+                listaColecciones
+            }
+
             ListaColeccionesScreen(
                 modifier = Modifier,
-                colecciones = listaColecciones,
-                onColeccionClick = { navController.navigate(Rutas.detalleConIdColeccion(it))}
+                colecciones = coleccionesAMostrar,
+                onColeccionClick = { navController.navigate(Rutas.detalleConIdColeccion(it))},
+                misCartas = misCartas,
+                cartas = listaCartas
             )
         }
         composable("coleccion/{coleccionId}") { backStackEntry ->
@@ -1197,13 +1285,6 @@ fun AppNavHost (
                 )
             }
 
-        }
-        composable("lol"){
-            ListaCartasScreen (
-                modifier = Modifier,
-                cartas = listaCartas,
-                onCartaClick = { navController.navigate(Rutas.detalleConIdColeccion(it))}
-            )
         }
     }
 }

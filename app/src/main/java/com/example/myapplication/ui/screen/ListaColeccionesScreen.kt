@@ -26,6 +26,8 @@ import com.example.myapplication.ui.components.ColeccionCard
 @Composable
 fun ListaColeccionesScreen(
     modifier: Modifier,
+    cartas: List<Carta>,
+    misCartas: List<Carta>,
     colecciones: List<Coleccion>,
     onColeccionClick: (Long) -> Unit
 ) {
@@ -40,7 +42,9 @@ fun ListaColeccionesScreen(
                 colecciones = colecciones,
                 onColeccionClick = { id ->
                     onColeccionClick(id)
-                }
+                },
+                cartas = cartas,
+                misCartas = misCartas
             )
         }
     }
@@ -53,6 +57,8 @@ fun ListaColeccionesScreen(
 fun ColeccionList(
     modifier: Modifier,
     colecciones: List<Coleccion>,
+    misCartas: List<Carta>,
+    cartas: List<Carta>,
     onColeccionClick: (Long) -> Unit
 ) {
 
@@ -63,11 +69,28 @@ fun ColeccionList(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(colecciones.size) { indice ->
+
             val coleccion = colecciones[indice]
+
+            val cartasObtenidas = misCartas
+                .filter { it.coleccion.id == coleccion.id }
+                .distinctBy { it.id }
+                .size
+
+            val totalCartas = cartas
+                .count { it.coleccion.id == coleccion.id }
+
+            val progreso = if (totalCartas > 0) {
+                cartasObtenidas.toFloat() / totalCartas
+            } else {
+                0f
+            }
+
             ColeccionCard(
                 modifier = Modifier.fillMaxWidth(),
                 coleccion = coleccion,
-                onClick = { onColeccionClick(coleccion.id) }
+                onClick = { onColeccionClick(coleccion.id) },
+                progreso = progreso
             )
 
         }

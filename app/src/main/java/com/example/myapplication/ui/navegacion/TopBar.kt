@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.R
+import com.example.myapplication.VariablesGlobales.nombreUsuario
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,22 +34,29 @@ fun TopBar(
         title = {
             Column() {
                 Text( text =
-                    when (currentRoute) {
-                        Rutas.HOME -> "¡Hola, [usuario]!"
-                        Rutas.MICOLECCION -> "Mi colección"
-                        Rutas.PERFIL -> "Perfil"
-                        Rutas.DETALLE -> "Detalle"
-                        Rutas.COLECCIONES -> "Sets"
-                        Rutas.COLECCION -> "Sets"
+                    when {
+                        currentRoute == Rutas.HOME ->
+                            "¡Hola, $nombreUsuario!"
+                        currentRoute == Rutas.MICOLECCION ->
+                            "Mi colección"
+                        currentRoute == Rutas.PERFIL ->
+                            "Perfil"
+                        currentRoute == Rutas.DETALLE ->
+                            "Detalle"
+                        currentRoute?.startsWith(Rutas.COLECCIONES) == true ->
+                            "Sets"
+                        currentRoute == Rutas.COLECCION ->
+                            "Sets"
                         else -> ""
                     },
                     style = MaterialTheme.typography.headlineMedium
                 )
 
                 if(currentRoute == Rutas.HOME) {
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
                     Text( text = "Tu colección, en buenas manos.",
                         style = MaterialTheme.typography.bodyLarge)
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
 

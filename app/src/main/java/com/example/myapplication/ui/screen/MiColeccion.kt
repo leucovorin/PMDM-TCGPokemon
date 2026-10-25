@@ -8,7 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,9 +44,10 @@ fun MiColeccion(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
     ) {
 
-        SearchBar(
+        DockedSearchBar(
             query = query,
             onQueryChange = { query = it },
             onSearch = { active = false },
@@ -48,8 +55,42 @@ fun MiColeccion(
             onActiveChange = { active = it },
             placeholder = {
                 Text("Buscar carta")
+            },
+            leadingIcon = {
+                IconButton(
+                    onClick = {
+                        active = false
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Buscar"
+                    )
+                }
+            },
+            trailingIcon = {
+                if(query.isNotEmpty()) {
+                    IconButton(
+                        onClick = {
+                            query = ""
+                            active = false
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Cerrar búsqueda"
+                        )
+                    }
+                }
             }
         ) {}
+
+        val cartasFiltradas = misCartas.filter { carta ->
+            carta.nombre.contains(
+                query,
+                ignoreCase = true
+            )
+        }
 
         Column() {
 
@@ -59,8 +100,8 @@ fun MiColeccion(
                 verticalArrangement = Arrangement.spacedBy(0.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(misCartas.size) { indice ->
-                    val carta = misCartas[indice]
+                items(cartasFiltradas.size) { indice ->
+                    val carta = cartasFiltradas[indice]
                     CartaCard(
                         modifier = Modifier.fillMaxWidth(),
                         carta = carta,
