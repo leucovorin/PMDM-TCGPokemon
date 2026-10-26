@@ -38,7 +38,6 @@ import androidx.compose.material3.IconButton
 fun HomeScreen(
     modifier: Modifier,
     cartas: List<Carta>,
-    misCartas: List<Carta>,
     onCartaClick: (Long) -> Unit,
     onMiColeccionClick: () -> Unit,
     onExplorarClick: () -> Unit

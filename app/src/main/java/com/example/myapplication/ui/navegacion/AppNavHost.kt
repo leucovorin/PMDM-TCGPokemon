@@ -25,7 +25,7 @@ import com.example.myapplication.ui.screen.PerfilScreen
 
 object Rutas {
     const val HOME = "home"
-    const val MICOLECCION = "micoleccion"
+     const val MICOLECCION = "micoleccion"
     const val PERFIL = "perfil"
 
     const val COLECCIONES = "colecciones"
@@ -1181,8 +1181,7 @@ fun AppNavHost (
                 cartas = listaCartas,
                 onCartaClick = { navController.navigate(Rutas.detalleConIdCarta(it))},
                 onExplorarClick = { navController.navigate(Rutas.COLECCIONES) },
-                onMiColeccionClick = { navController.navigate(Rutas.MICOLECCION) },
-                misCartas = misCartas
+                onMiColeccionClick = { navController.navigate(Rutas.MICOLECCION) }
             )
         }
         composable(Rutas.MICOLECCION) {
@@ -1227,7 +1226,7 @@ fun AppNavHost (
             ListaColeccionesScreen(
                 modifier = Modifier,
                 colecciones = coleccionesAMostrar,
-                onColeccionClick = { navController.navigate(Rutas.detalleConIdColeccion(it))},
+                onColeccionClick = { navController.navigate(Rutas.detalleConIdColeccion(it)) },
                 misCartas = misCartas,
                 cartas = listaCartas
             )
@@ -1254,8 +1253,7 @@ fun AppNavHost (
                             Rutas.detalleConIdCarta(cartaId)
                         )
                     },
-                    coleccion = coleccion,
-                    navController = navController
+                    coleccion = coleccion
                 )
             }
         }
@@ -1284,65 +1282,6 @@ fun AppNavHost (
                     }
                 )
             }
-
         }
     }
-}
-
-fun buscarCarta(id: Long) : Carta {
-    val listaCartas = listOf(
-        Carta(
-            id = 1,
-            nombre = "Alakazam",
-            rareza = Rareza.RH,
-            precio = 0.20f,
-            numero = "1/102",
-            ilustrador = "Ken Sugimori",
-            coleccion = listaColecciones[0],
-            imagen = ""
-        ),
-
-        Carta(
-            id = 2,
-            nombre = "Blastoise",
-            rareza = Rareza.RH,
-            precio = 8.75f,
-            numero = "2/102",
-            ilustrador = "Ken Sugimori",
-            coleccion = listaColecciones[0],
-            imagen = ""
-        ),
-        Carta(
-            id = 3,
-            nombre = "Chansey",
-            rareza = Rareza.RH,
-            precio = 85.00f,
-            numero = "3/102",
-            ilustrador = "Ken Sugimori",
-            coleccion = listaColecciones[0],
-            imagen = ""
-        ),
-        Carta(
-            id = 4,
-            nombre = "Charizard",
-            rareza = Rareza.RH,
-            precio = 12.50f,
-            numero = "4/102",
-            ilustrador = "Mitsuhiro Arita",
-            coleccion = listaColecciones[0],
-            imagen = ""
-        ),
-        Carta(
-            id = 5,
-            nombre = "Clefairy",
-            rareza = Rareza.RH,
-            precio = 85.00f,
-            numero = "5/102",
-            ilustrador = "Ken Sugimori",
-            coleccion = listaColecciones[0],
-            imagen = ""
-        )
-    )
-
-    return listaCartas.find { it.id == id }!!
 }

@@ -35,7 +35,6 @@ fun ColeccionScreen(
     cartas: List<Carta>,
     coleccion: Coleccion,
     onCartaClick: (Long) -> Unit,
-    navController: NavHostController
 ) {
     val cartasColeccion = cartas.filter {
         it.coleccion.id == coleccionId

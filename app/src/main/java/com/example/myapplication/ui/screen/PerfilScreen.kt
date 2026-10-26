@@ -54,7 +54,7 @@ fun PerfilScreen(
     var nuevoNombre by remember { mutableStateOf(nombreUsuario) }
 
     Column {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = modifier.height(16.dp))
         Row() {
             Text(
                 text = "${nombreUsuario}",
