@@ -15,9 +15,12 @@ import com.example.myapplication.R
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import coil.compose.AsyncImage
+import com.example.myapplication.model.CartaColeccion
 import com.example.myapplication.model.Coleccion
 import com.example.myapplication.model.listaColecciones
+import com.example.myapplication.ui.screen.CartaFormScreen
 import com.example.myapplication.ui.screen.ColeccionScreen
+import com.example.myapplication.ui.screen.DetalleCCScreen
 import com.example.myapplication.ui.screen.DetalleScreen
 import com.example.myapplication.ui.screen.ListaColeccionesScreen
 import com.example.myapplication.ui.screen.MiColeccion
@@ -30,10 +33,16 @@ object Rutas {
 
     const val COLECCIONES = "colecciones"
     const val DETALLE = "detalle/{cartaId}"
+    const val DETALLECC = "detallecc/{cartaId}"
 
     const val COLECCION = "coleccion/{coleccionId}"
 
+    const val NUEVA_CARTA = "nueva_carta?cartaId={cartaId}"
+
+    const val EDITAR_CARTA = "editar_carta?cartaId={cartaId}"
+
     fun detalleConIdCarta(cartaId: Long) = "detalle/$cartaId"
+    fun detalleConIdCartaCC(cartaId: Long) = "detallecc/$cartaId"
     fun detalleConIdColeccion(coleccionId: Long) = "coleccion/$coleccionId"
 }
 
@@ -44,13 +53,13 @@ fun AppNavHost (
 ) {
 
     val misCartas = remember {
-        mutableStateListOf<Carta>()
+        mutableStateListOf<CartaColeccion>()
     }
 
     val masColeccionadas = listaColecciones
         .sortedByDescending { coleccion ->
             misCartas
-                .filter { it.coleccion.id == coleccion.id }
+                .filter { it.carta.coleccion.id == coleccion.id }
                 .distinctBy { it.id }
                 .size
         }
@@ -1188,7 +1197,7 @@ fun AppNavHost (
             MiColeccion(
                 modifier = Modifier,
                 misCartas = misCartas.sortedBy { it.id },
-                onCartaClick = { navController.navigate(Rutas.detalleConIdCarta(it))}
+                onCartaClick = { navController.navigate(Rutas.detalleConIdCartaCC(it))}
             )
         }
         composable(Rutas.PERFIL) {
@@ -1216,7 +1225,7 @@ fun AppNavHost (
             val coleccionesAMostrar = if (ordenar) {
                 listaColecciones.sortedByDescending { coleccion ->
                     misCartas.count { carta ->
-                        carta.coleccion.id == coleccion.id
+                        carta.carta.coleccion.id == coleccion.id
                     }
                 }
             } else {
@@ -1269,19 +1278,72 @@ fun AppNavHost (
 
             if( carta != null ) {
                 DetalleScreen(
-                    modifier = Modifier,
                     carta = carta,
-                    misCartas = misCartas,
-                    onAnadirCarta = { cartaAAnadir ->
-                        if(misCartas.none { it.id == cartaAAnadir.id}) {
-                            misCartas.add(cartaAAnadir)
-                        }
-                    },
-                    onBorrarCarta = { cartaABorrar ->
-                        misCartas.removeAll{ it.id == cartaABorrar.id }
+                    onAnadirCarta = { navController.navigate("nueva_carta?cartaId=${carta.id}") }
+                )
+            }
+        }
+        composable("detallecc/{cartaId}") { backStackEntry ->
+
+            val cartaId = backStackEntry.arguments
+                ?.getString("cartaId")
+                ?.toLongOrNull()
+
+            val carta = cartaId?.let { id ->
+                misCartas.firstOrNull { it.id == id }
+            }
+
+            if( carta != null ) {
+                DetalleCCScreen(
+                    carta = carta,
+                    onEditarCarta = { navController.navigate("editar_carta?cartaId=${carta.id}") },
+                    onBorrarCarta = {
+                        misCartas.remove(it)
+                        navController.navigate(Rutas.MICOLECCION)
                     }
                 )
             }
+
+        }
+
+        composable(
+            route = Rutas.NUEVA_CARTA,
+            arguments = listOf(navArgument("cartaId") {type = NavType.LongType})
+        ) { arg ->
+                CartaFormScreen(
+                    modifier = Modifier,
+                    onSaveClick = {
+                        misCartas.add(it)
+                        navController.popBackStack()
+                    },
+                    onCancelarClick = { navController.popBackStack() },
+                    cartaInicial = null,
+                    misCartas = misCartas,
+                    carta = listaCartas.find { it.id == arg.arguments?.getLong("cartaId") }!!,
+                    onBorrarCarta = {}
+                )
+        }
+
+        composable(
+            route = Rutas.EDITAR_CARTA,
+            arguments = listOf(navArgument("cartaId") {type = NavType.LongType})
+        ) { arg ->
+
+            val idBuscado = arg.arguments?.getLong("cartaId") ?: 0L
+            val carta = misCartas.find { it.id == idBuscado }
+
+            CartaFormScreen(
+                modifier = Modifier,
+                onSaveClick = {
+                    misCartas.add(it)
+                    navController.popBackStack()
+                },
+                onCancelarClick = { navController.popBackStack() },
+                cartaInicial = carta,
+                misCartas = misCartas,
+                carta = carta?.carta ?: listaCartas.find { it.id == idBuscado }!!,
+                onBorrarCarta = { misCartas.remove(it) }
+            )
         }
     }
 }

@@ -43,10 +43,16 @@ fun TopBar(
                             "Perfil"
                         currentRoute == Rutas.DETALLE ->
                             "Detalle"
+                        currentRoute == Rutas.DETALLECC ->
+                            "Detalle"
                         currentRoute?.startsWith(Rutas.COLECCIONES) == true ->
                             "Sets"
                         currentRoute == Rutas.COLECCION ->
                             "Sets"
+                        currentRoute == Rutas.NUEVA_CARTA ->
+                            "Nueva carta"
+                        currentRoute == Rutas.EDITAR_CARTA ->
+                            "Editar carta"
                         else -> ""
                     },
                     style = MaterialTheme.typography.headlineMedium

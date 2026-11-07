@@ -20,6 +20,7 @@ import androidx.compose.material3.Card
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.myapplication.model.CartaColeccion
 import com.example.myapplication.model.Coleccion
 import com.example.myapplication.ui.components.ColeccionCard
 
@@ -27,7 +28,7 @@ import com.example.myapplication.ui.components.ColeccionCard
 fun ListaColeccionesScreen(
     modifier: Modifier,
     cartas: List<Carta>,
-    misCartas: List<Carta>,
+    misCartas: List<CartaColeccion>,
     colecciones: List<Coleccion>,
     onColeccionClick: (Long) -> Unit
 ) {
@@ -57,7 +58,7 @@ fun ListaColeccionesScreen(
 fun ColeccionList(
     modifier: Modifier,
     colecciones: List<Coleccion>,
-    misCartas: List<Carta>,
+    misCartas: List<CartaColeccion>,
     cartas: List<Carta>,
     onColeccionClick: (Long) -> Unit
 ) {
@@ -73,7 +74,7 @@ fun ColeccionList(
             val coleccion = colecciones[indice]
 
             val cartasObtenidas = misCartas
-                .filter { it.coleccion.id == coleccion.id }
+                .filter { it.carta.coleccion.id == coleccion.id }
                 .distinctBy { it.id }
                 .size
 

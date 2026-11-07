@@ -39,13 +39,14 @@ import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.VariablesGlobales.nombreUsuario
 import com.example.myapplication.model.Carta
+import com.example.myapplication.model.CartaColeccion
 import com.example.myapplication.model.Coleccion
 
 @Composable
 fun PerfilScreen(
     modifier: Modifier,
     listaCartas: List<Carta>,
-    misCartas: List<Carta>,
+    misCartas: List<CartaColeccion>,
     masColeccionadas: List<Coleccion>,
     onProgresoClick: () -> Unit
 ) {
@@ -96,7 +97,7 @@ fun PerfilScreen(
 
                     masColeccionadas.forEach { coleccion ->
                         val cartasObtenidas = misCartas
-                            .filter { it.coleccion.id == coleccion.id }
+                            .filter { it.carta.coleccion.id == coleccion.id }
                             .distinctBy { it.id }
                             .size
 

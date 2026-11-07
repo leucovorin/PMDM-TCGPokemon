@@ -25,6 +25,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
+import com.example.myapplication.model.CartaColeccion
 import com.example.myapplication.model.listaColecciones
 
 @Composable

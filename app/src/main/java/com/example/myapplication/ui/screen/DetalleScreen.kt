@@ -2,15 +2,12 @@ package com.example.myapplication.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,23 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.myapplication.model.Carta
-import com.example.myapplication.model.listaColecciones
-import com.example.myapplication.ui.components.CartaCard
-import com.example.myapplication.ui.navegacion.Rutas
 
 @Composable
 fun DetalleScreen(
-    modifier: Modifier,
     carta: Carta,
-    misCartas: List<Carta>,
-    onAnadirCarta: (Carta) -> Unit,
-    onBorrarCarta: (Carta) -> Unit
+    onAnadirCarta: (Carta) -> Unit
 ) {
-
-    val tieneCarta = carta in misCartas
 
     Column(modifier = Modifier.padding(top = 32.dp)) {
         val imagen = carta.imagen
@@ -88,19 +76,9 @@ fun DetalleScreen(
             Row {
                 Button(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).height(52.dp),
                     onClick = {
-                        if(tieneCarta) {
-                            onBorrarCarta(carta)
-                        } else {
-                            onAnadirCarta(carta)
-                        }
+                        onAnadirCarta(carta)
                     }) {
-                    Text(
-                        if(tieneCarta) {
-                            "Quitar de mi colección"
-                        } else {
-                            "Añadir a mi colección"
-                        }
-                    )
+                    Text("Añadir a mi colección")
                 }
             }
 
